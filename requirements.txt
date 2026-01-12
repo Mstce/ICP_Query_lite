@@ -1,0 +1,9 @@
+aiohttp>=3.9.0
+cachetools>=5.3.0
+numpy>=1.21.0,<=1.26.4
+Pillow>=9.0.0
+opencv-python>=4.7.0
+onnxruntime>=1.16.0
+PyYAML>=6.0.0
+pycryptodome
+ujson
