@@ -4,8 +4,8 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/python-3.11-blue?style=flat-square" alt="Python Version"/>
-  <a href="https://github.com/HG-ha/ICP_Query">
-    <img src="https://img.shields.io/github/v/tag/HG-ha/ICP_Query?label=version&style=flat-square&sort=semver" alt="Latest Version"/>
+  <a href="https://github.com/Mstce/ICP_Query_lite">
+    <img src="https://img.shields.io/github/v/tag/Mstce/ICP_Query_lite?label=version&style=flat-square&sort=semver" alt="Latest Version"/>
   </a>
 </p>
 
@@ -34,8 +34,8 @@
 ### 源码部署
 
 ```shell
-git clone https://github.com/HG-ha/ICP_Query.git
-cd ICP_Query
+git clone https://github.com/Mstce/ICP_Query_lite.git
+cd ICP_Query_lite
 uv init
 uv venv --python 3.11
 uv pip install -r requirements.txt
