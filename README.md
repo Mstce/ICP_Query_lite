@@ -18,22 +18,6 @@ pip install -r requirements.txt
 python icpApi.py
 ```
 
-## 💻 使用方法
-
-### 使用查询模块
-
-```python
-import asyncio
-from ymicp import beian
-
-async def main(name):
-    icp = beian()
-    query = await icp.ymApp(name)
-    print(query)
-
-asyncio.run(main("微信"))
-```
-
 ### 🔍使用API查询接口
 
 #### 支持八种类型查询：
