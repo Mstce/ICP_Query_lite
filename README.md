@@ -17,7 +17,8 @@ pip install -r requirements.txt
 ```bash
 python icpApi.py
 ```
-
+启动后如果是在Onyx使用，接口填写http://127.0.0.1:59641
+当然你可以自己添加请求头认证部署在服务器上
 ### 🔍使用API查询接口
 
 #### 支持八种类型查询：
