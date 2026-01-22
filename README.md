@@ -1,13 +1,13 @@
 ﻿# ICP_Query_lite
 
-此项目是精简后的代码，只保留了查询接口，修复了原项目不能查询的问题，主要是提供给https://github.com/Mstce/Onyx项目使用。
+此项目是精简后的代码，只保留了查询接口，修复了原项目不能查询的问题，主要是提供给https://github.com/Mstce/Onyx   项目使用。
 
 ### 源码部署
 
 ```shell
 Python 3.8+（建议 3.9/3.10）
 依赖安装（与原项目一致）：
-pip install -r ../requirements.txt
+pip install -r requirements.txt
 ```
 
 ## 启动服务
