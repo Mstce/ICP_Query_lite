@@ -1,0 +1,41 @@
+system:
+  host: 0.0.0.0
+  port: 59641
+  http_client_timeout: 5
+captcha:
+  enable: true
+  save_failed_img: false
+  save_failed_img_path: faile_captcha
+  device:
+  - CPU
+  retry_times: 10
+  coding_code: auto
+  coding_show: false
+proxy:
+  local_ipv6_pool:
+    enable: false
+  tunnel:
+    url: null
+  extra_api:
+    url: null
+    extra_interval: 3
+    timeout: 100
+    timeout_drop: 8
+    proxy_timeout: 0.5
+risk_avoidance:
+  allow_type:
+  - web
+  - app
+  - mapp
+  - kapp
+  - bweb
+  - bapp
+  - bmapp
+  - bkapp
+  prohibit_suffix: []
+log:
+  dir: logs
+  file_head: ymicp
+  backup_count: 7
+  save_log: false
+  output_console: true
