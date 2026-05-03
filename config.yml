@@ -6,11 +6,7 @@ captcha:
   enable: true
   save_failed_img: false
   save_failed_img_path: faile_captcha
-  device:
-  - CPU
   retry_times: 10
-  coding_code: auto
-  coding_show: false
 proxy:
   local_ipv6_pool:
     enable: false

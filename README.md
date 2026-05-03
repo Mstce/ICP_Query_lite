@@ -81,6 +81,8 @@ system:
 
 captcha:
   enable: true           # 启用验证码自动识别
+  save_failed_img: false # 保存识别失败的验证码图片
+  save_failed_img_path: faile_captcha  # 失败图片保存路径
   retry_times: 10        # 验证码重试次数
 
 proxy:
@@ -90,6 +92,29 @@ proxy:
     url: null            # 隧道代理地址
   extra_api:
     url: null            # 代理API提取地址
+    extra_interval: 3    # 代理提取间隔(秒)
+    timeout: 100         # 代理超时(秒)
+    timeout_drop: 8      # 提前丢弃超时代理(秒)
+    proxy_timeout: 0.5   # 代理检测超时(秒)
+
+risk_avoidance:
+  allow_type:            # 允许的查询类型
+  - web
+  - app
+  - mapp
+  - kapp
+  - bweb
+  - bapp
+  - bmapp
+  - bkapp
+  prohibit_suffix: []    # 禁止查询的域名后缀
+
+log:
+  dir: logs              # 日志目录
+  file_head: ymicp       # 日志文件名前缀
+  backup_count: 7        # 日志保留天数
+  save_log: false        # 是否保存日志到文件
+  output_console: true   # 是否输出到控制台
 ```
 
 ## 响应参数
