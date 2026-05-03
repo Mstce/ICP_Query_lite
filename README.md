@@ -79,6 +79,8 @@ system:
   port: 59641           # 监听端口
   http_client_timeout: 5 # 请求超时(秒)
   auth_token: null      # 请求头认证密码，为null时不启用认证
+                        # 启用后请求需携带 x-auth-token 请求头
+                        # 值为密码的base64编码，例: echo -n "mypass" | base64
 
 captcha:
   enable: true           # 启用验证码自动识别
