@@ -109,5 +109,5 @@ proxy:
 
 ## 相关项目
 
-- [完整版 ICP_Query](https://github.com/HG-ha/ICP_Query) - 带管理界面、数据库、代理池等完整功能
+- [ICP_Query](https://github.com/HG-ha/ICP_Query) - 原作者项目，带管理界面、数据库、代理池等完整功能
 - [Onyx](https://github.com/Mstce/Onyx) - 前端查询界面
