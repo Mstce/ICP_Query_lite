@@ -69,6 +69,18 @@ curl "http://127.0.0.1:59641/query/web?search=深圳市腾讯计算机系统有�
 curl "http://127.0.0.1:59641/query/app?search=微信"
 ```
 
+### 启用认证后的请求示例
+
+配置 `auth_token` 后，请求需携带 `x-auth-token` 请求头，值为密码的 base64 编码：
+
+```bash
+# 生成 base64 编码的 token
+TOKEN=$(echo -n "your_password" | base64)
+
+# 带认证头查询
+curl -H "x-auth-token: $TOKEN" "http://127.0.0.1:59641/query/web?search=baidu.com"
+```
+
 ## 配置说明
 
 编辑 `config.yml`：
