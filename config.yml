@@ -2,6 +2,7 @@ system:
   host: 0.0.0.0
   port: 59641
   http_client_timeout: 5
+  auth_token: null  # 请求头认证密码，为null时不启用认证
 captcha:
   enable: true
   save_failed_img: false

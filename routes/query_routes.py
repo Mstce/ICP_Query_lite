@@ -5,6 +5,7 @@ Only exposes /query/{path}.
 """
 import random
 import time
+import base64
 import aiohttp
 from aiohttp import web
 from middlewares import jsondump, wj
@@ -19,6 +20,19 @@ routes = web.RouteTableDef()
 @jsondump
 @routes.view(r"/query/{path}")
 async def geturl(request):
+    # 请求头认证
+    auth_token = getattr(config.system, 'auth_token', None)
+    if auth_token:
+        token = request.headers.get('x-auth-token')
+        if not token:
+            return wj({"code": 401, "msg": "未授权，请提供认证令牌"})
+        try:
+            decoded = base64.b64decode(token).decode()
+            if decoded != auth_token:
+                return wj({"code": 401, "msg": "无效的令牌"})
+        except Exception:
+            return wj({"code": 401, "msg": "无效的令牌"})
+
     path = request.match_info["path"]
 
     appth = request.app.get("appth", {})

@@ -78,6 +78,7 @@ system:
   host: 0.0.0.0        # 监听地址
   port: 59641           # 监听端口
   http_client_timeout: 5 # 请求超时(秒)
+  auth_token: null      # 请求头认证密码，为null时不启用认证
 
 captcha:
   enable: true           # 启用验证码自动识别
