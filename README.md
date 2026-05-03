@@ -1,27 +1,30 @@
-﻿# ICP_Query_lite
+# ICP_Query_lite
 
-此项目是精简后的代码，只保留了查询接口，修复了原项目不能查询的问题，主要是提供给https://github.com/Mstce/Onyx   项目使用。
+工信部 ICP 备案查询精简版，只保留查询接口。基于滑块验证码自动识别，无需 ONNX 模型。
 
-### 源码部署
+主要为 [Onyx](https://github.com/Mstce/Onyx) 项目提供后端支持。
 
-```shell
-Python 3.8+（建议 3.9/3.10）
-依赖安装（与原项目一致）：
-pip install -r requirements.txt
+## 部署
+
+**环境要求**: Python 3.8+（建议 3.9/3.10）
+
+**依赖安装**:
+
+```bash
+pip install aiohttp pyyaml numpy Pillow ujson cachetools
 ```
 
-## 启动服务
-
-在 `ICP_Query_lite` 目录下运行：
+## 启动
 
 ```bash
 python icpApi.py
 ```
-启动后如果是在Onyx使用，接口填写http://127.0.0.1:59641
-当然你可以自己添加请求头认证部署在服务器上
-### 🔍使用API查询接口
 
-#### 支持八种类型查询：
+默认监听 `http://127.0.0.1:59641`，在 Onyx 中填入此地址即可。
+
+## API 接口
+
+### 支持八种查询类型
 
 | 类型    | 说明           |
 | ------- | -------------- |
@@ -34,59 +37,77 @@ python icpApi.py
 | `bmapp` | 违法违规小程序 |
 | `bkapp` | 违法违规快应用 |
 
-#### 示例请求
+### 请求格式
 
-##### GET请求
+```
+GET/POST http://127.0.0.1:59641/query/{type}?search={name}
+```
 
-- **URL格式**: `http://0.0.0.0:16181/query/{type}?search={name}`
+**参数**:
 
-- **示例1**: 查询域名 `baidu.com` 备案信息
-  ```
-  curl http://127.0.0.1:16181/query/web?search=baidu.com
-  ```
+| 参数       | 必填 | 说明                            |
+| ---------- | ---- | ------------------------------- |
+| search     | 是   | 域名、备案号或企业名称          |
+| pageNum    | 否   | 页码，默认第1页                 |
+| pageSize   | 否   | 每页条数                        |
+| use_proxy  | 否   | 是否使用代理池，默认 false      |
+| proxy      | 否   | 指定代理地址                    |
 
-- **示例2**: 根据网站的备案号 `京ICP证030173号` 查询备案信息
-  ```
-  curl http://127.0.0.1:16181/query/web?search=京ICP证030173号
-  ```
+### 示例
 
-- **示例3**: 根据企业名称查询备案信息
-  ```
-  curl http://127.0.0.1:16181/query/web?search=深圳市腾讯计算机系统有限公司
-  ```
+```bash
+# 查询域名备案
+curl "http://127.0.0.1:59641/query/web?search=baidu.com"
 
-- **示例4**: 根据企业名称查询备案信息，每页20条数据，查询第3页
-  ```
-  curl http://127.0.0.1:16181/query/web?search=深圳市腾讯计算机系统有限公司&pageNum=3&pageSize=20
-  ```
+# 按备案号查询
+curl "http://127.0.0.1:59641/query/web?search=京ICP证030173号"
 
-## 📊 响应参数说明
+# 按企业名称查询，第3页每页20条
+curl "http://127.0.0.1:59641/query/web?search=深圳市腾讯计算机系统有限公司&pageNum=3&pageSize=20"
 
-| 参数             | 说明                                                         |
-| ---------------- | ------------------------------------------------------------ |
-| lastPage         | 据查询数量有多少页                                           |
-| pages            | 据查询数量有多少页                                           |
-| pageSize         | 每页几条数据                                                 |
-| pageNum          | 第几页                                                       |
-| nextPage         | 下一页的页面序号                                             |
-| total            | 据查询数量有多少页                                           |
-| domain           | 备案的域名                                                   |
-| domainId         | 域名id                                                       |
-| limitAccess      | 是否限制接入                                                 |
-| mainLicence      | ICP备案主体许可证号                                          |
-| natureName       | 主办单位性质                                                 |
-| serviceLicence   | ICP备案服务许可证号                                          |
-| unitName         | 主办单位名称                                                 |
-| updateRecordTime | 审核通过日期                                                 |
-| contentTypeName  | 服务前置审批项                                               |
-| cityId           | 城市ID                                                       |
-| countyId         | 区县ID                                                       |
-| contentTypeName  | 内容类型                                                     |
-| mainUnitAddress  | 主体地址                                                     |
-| serviceName      | 服务名称(APP、小程序或快应用名称)                            |
-| version          | 服务版本                                                     |
-| blackListLevel   | 威胁等级，表示是否为违法违规应用，目前获得的等级为2时，表示暂无违法违规信息 |
+# 查询APP备案
+curl "http://127.0.0.1:59641/query/app?search=微信"
+```
 
-## 🔗 原项目链接
+## 配置说明
 
-- [🔗 完整版ICP_Query](https://github.com/HG-ha/ICP_Query)
+编辑 `config.yml`：
+
+```yaml
+system:
+  host: 0.0.0.0        # 监听地址
+  port: 59641           # 监听端口
+  http_client_timeout: 5 # 请求超时(秒)
+
+captcha:
+  enable: true           # 启用验证码自动识别
+  retry_times: 10        # 验证码重试次数
+
+proxy:
+  local_ipv6_pool:
+    enable: false        # 启用本地IPv6轮换
+  tunnel:
+    url: null            # 隧道代理地址
+  extra_api:
+    url: null            # 代理API提取地址
+```
+
+## 响应参数
+
+| 参数             | 说明           |
+| ---------------- | -------------- |
+| domain           | 备案域名       |
+| mainLicence      | 主体备案号     |
+| serviceLicence   | 服务备案号     |
+| unitName         | 主办单位名称   |
+| natureName       | 主办单位性质   |
+| updateRecordTime | 审核通过日期   |
+| serviceName      | 服务名称(APP/小程序/快应用) |
+| total            | 总记录数       |
+| pageNum          | 当前页码       |
+| pageSize         | 每页条数       |
+
+## 相关项目
+
+- [完整版 ICP_Query](https://github.com/HG-ha/ICP_Query) - 带管理界面、数据库、代理池等完整功能
+- [Onyx](https://github.com/Mstce/Onyx) - 前端查询界面
